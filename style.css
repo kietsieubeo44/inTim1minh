@@ -19,14 +19,18 @@ html {
 body {
     overflow: hidden; /* Ngăn chặn thanh cuộn */
 }
-.centered-text {
-    position: fixed; /* Đặt phần tử ở vị trí cố định trên màn hình */
-    top: 50%; /* Đặt top ở giữa màn hình */
-    left: 50%; /* Đặt left ở giữa màn hình */
-    transform: translate(-50%, -50%); /* Dịch chuyển phần tử 50% chiều ngang và chiều dọc */
-  }
+
   body, html {
     margin: 0;
     padding: 0;
   }
     
+  #ngoc-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Đảm bảo phần tử này hiển thị phía trước trái tim */
+    font-size: 24px; /* Điều chỉnh kích thước của chữ */
+  }
+  

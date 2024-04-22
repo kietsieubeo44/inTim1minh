@@ -6,18 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heart Beat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <!-- Đính kèm thư viện three.textsprite.js -->
-  <script src="https://cdn.jsdelivr.net/npm/three.textsprite@2"></script>
-
   <link rel="stylesheet" href="style.css" />
   <style>
     html {
-      transform: scale(1.7);
+      transform: scale(1.7256586448564 545 54 4);
     }
   </style>
 </head>
 
 <body>
+
+
+  <!-- Các phần tử khác ở đây -->
+
+  <!-- Các phần tử khác ở đây -->
 
   <script src="js/three.min.js"></script>
   <script src="js/MeshSurfaceSampler.js"></script>
@@ -35,7 +37,7 @@
       60,
       window.innerWidth / window.innerHeight,
       0.8,
-      500
+      1000
     );
 
     //  创建渲染器对象
@@ -237,30 +239,41 @@
     }
 
   </script>
+
+
   <script>
-    // Tạo TextTexture từ văn bản và font
-    const loader = new THREE.FontLoader();
-    loader.load('monaco.ttf', function (font) {
-      const textGeometry = new THREE.TextGeometry('Ngọc', {
+    // Thay thế URL của font bằng font hỗ trợ tiếng Việt
+    const fontLoader = new THREE.FontLoader();
+
+    fontLoader.load('https://threejs.org/examples/fonts/gentilis_bold.typeface.json', function (font) {
+      const textGeometry = new THREE.TextGeometry('Hiếu Ngọc', {
         font: font,
-        size: 200,
-        height: 0.01
+        size: 0.075555, // Điều chỉnh cỡ chữ tại đây
+        height: 0.02,
+        curveSegments: 12,
+        bevelEnabled: false
       });
-      const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+      // Tính toán kích thước của văn bản
+      textGeometry.computeBoundingBox();
+      const textWidth = textGeometry.boundingBox.max.x - textGeometry.boundingBox.min.x;
+
+      // Tạo vật liệu văn bản với màu hồng đậm
+      const textMaterial = new THREE.MeshBasicMaterial({ color: 0xF356C6 }); // Màu hồng đậm: #FF00FF
       const textMesh = new THREE.Mesh(textGeometry, textMaterial);
 
-      // Tạo Sprite từ TextTexture
-      const textTexture = new THREE.CanvasTexture(textCanvas);
-      const spriteMaterial = new THREE.SpriteMaterial({ map: textTexture });
-      const sprite = new THREE.Sprite(spriteMaterial);
+      // Đặt vị trí của văn bản để nằm giữa
+      textMesh.position.set(-textWidth / 2, 0, 0); // Điều chỉnh vị trí x để nằm giữa
 
-      // Đặt vị trí và kích thước cho Sprite
-      sprite.position.set(0, -0.4, 0); // Đặt vị trí vào giữa trái tim
-      sprite.scale.set(0.2, 0.1, 1); // Đặt kích thước cho văn bản
+      // Đặt góc quay ban đầu của văn bản
+      textMesh.rotation.set(0, 0, 0);
 
-      // Thêm vào cảnh
-      scene.add(sprite);
+      // Thêm văn bản vào cảnh
+      group.add(textMesh);
     });
+
+
+
 
   </script>
 </body>
