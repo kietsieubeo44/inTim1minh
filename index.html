@@ -32,7 +32,7 @@
 
     const scene = new THREE.Scene();
 
-    // 创建透视相机
+
     const camera = new THREE.PerspectiveCamera(
       60,
       window.innerWidth / window.innerHeight,
@@ -40,28 +40,28 @@
       1000
     );
 
-    //  创建渲染器对象
+
     const renderer = new THREE.WebGLRenderer({
-      antialias: true, //  是否执行抗锯齿。默认值为false。
+      antialias: true,
     });
 
-    // 设置颜色及其透明度
+
     renderer.setClearColor(new THREE.Color("rgb(0,0,0)"));
 
-    // 将输 canvas 的大小调整为 (width, height) 并考虑设备像素比，且将视口从 (0, 0) 开始调整到适合大小
+
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
 
-    // 表示对象局部位置的 Vector3。默认值为(0, 0, 0)。
+
     camera.position.z = 1.8;
 
-    // 轨迹球控制器
+
     const controls = new THREE.TrackballControls(camera, renderer.domElement);
     controls.noPan = true;
     controls.maxDistance = 3;
     controls.minDistance = 0.7;
 
-    // 物体
+
     const group = new THREE.Group();
     scene.add(group);
 
@@ -69,7 +69,7 @@
     let sampler = null;
     let originHeart = null;
 
-    // OBJ加载器
+
     new THREE.OBJLoader().load(
       "https://assets.codepen.io/127738/heart_2.obj",
       (obj) => {
@@ -79,16 +79,16 @@
         heart.geometry.translate(0, -0.4, 0);
         group.add(heart);
 
-        // 基础网格材质
+
         heart.material = new THREE.MeshBasicMaterial({
           color: new THREE.Color("rgb(0,0,0)"),
         });
         originHeart = Array.from(heart.geometry.attributes.position.array);
-        // 用于在网格表面上采样加权随机点的实用程序类。
+
         sampler = new THREE.MeshSurfaceSampler(heart).build();
-        // 生成表皮
+
         init();
-        // 每一帧都会调用
+
         renderer.setAnimationLoop(render);
       }
     );
@@ -246,7 +246,7 @@
     const fontLoader = new THREE.FontLoader();
 
     fontLoader.load('https://threejs.org/examples/fonts/gentilis_bold.typeface.json', function (font) {
-      const textGeometry = new THREE.TextGeometry('Hiếu Ngọc', {
+      const textGeometry = new THREE.TextGeometry('Hà Hạ Duyên', {
         font: font,
         size: 0.075555, // Điều chỉnh cỡ chữ tại đây
         height: 0.02,
